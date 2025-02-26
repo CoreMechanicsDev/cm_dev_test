@@ -1,5 +1,7 @@
 #pragma once
 
+// Git test comment
+
 #include "DrawDebugHelpers.h"
 
 // Macro to print text to screen
