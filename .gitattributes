@@ -1,8 +1,7 @@
 Content/TestProject/**/*.uasset filter=lfs diff=lfs merge=lfs -text
 Content/TestProject/**/*.umap filter=lfs diff=lfs merge=lfs -text
-.uproject lockable
 .txt lockable
-*.uproject filter=lfs diff=lfs merge=lfs -text lockable
+.png lockable
 *.uasset filter=lfs diff=lfs merge=lfs -text lockable
 *.umap filter=lfs diff=lfs merge=lfs -text lockable
 *.h filter=lfs diff=lfs merge=lfs -text lockable
