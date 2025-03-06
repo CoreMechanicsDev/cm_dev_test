@@ -3,8 +3,7 @@
 
 #include "PlayerCharacter.h"
 // This include is able to referred to without the path because we included
-// the path in the Build.cs file
-#include "MyMacros.h"
+// the path in the Build.cs fil
 
 
 // Sets default values
@@ -19,16 +18,16 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Hello World"));
+	UE_LOG(LogTemp, Warning, TEXT("Hello World From UE_LOG"));
 
 	//	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, TEXT("Hello Screen"));
 	// Replaced the above long command with a macro contained in MyMacros.h
 	// Now printing is much easier
 	
-	PRINT("Hello Macro World!");
+	PRINT("Hello World From Macro");
 	
 	// Another Macro to also print the function from which the print call was made
-	PRINTARGS("Hello From Function: %s", *FString(__FUNCTION__));
+	PRINTARGS("Hello World From Function: %s", *FString(__FUNCTION__));
 
 	// Set up a vector that serves as center location for sphere
 	FVector TargetLocation(2200.f, 700.f, 150.f);

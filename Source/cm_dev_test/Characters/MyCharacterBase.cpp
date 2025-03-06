@@ -15,6 +15,8 @@ AMyCharacterBase::AMyCharacterBase()
 void AMyCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+	PRINT("Hello From MyCharacterBase.cpp");
+
 	
 }
 
