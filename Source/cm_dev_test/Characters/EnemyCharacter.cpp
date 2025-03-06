@@ -1,6 +1,5 @@
 // Core Mechanics
-// Maximum Depth
-// Testing if unlocked
+
   
 #include "EnemyCharacter.h"
 

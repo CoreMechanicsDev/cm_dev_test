@@ -1,7 +1,6 @@
 #pragma once
 
-// Git test comment modification
-// Git lock test
+// Macros to prevent repetetive long strings of code
 
 #include "DrawDebugHelpers.h"
 
