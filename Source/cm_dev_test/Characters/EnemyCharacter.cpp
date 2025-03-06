@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bbfcac71213fc501196581c50cf5a1aa6464fa6d95c61c80a6da0da24d4c24a6
-size 682
+// Core Mechanics
+// Maximum Depth
+
+#include "EnemyCharacter.h"
+
+
+// Sets default values
+AEnemyCharacter::AEnemyCharacter()
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+void AEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void AEnemyCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+// Called to bind functionality to input
+void AEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+

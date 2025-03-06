@@ -1,7 +1,7 @@
 // Core Mechanics
 
 #pragma once
-
+ 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"

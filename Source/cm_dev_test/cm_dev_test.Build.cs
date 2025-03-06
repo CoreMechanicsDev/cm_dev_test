@@ -9,7 +9,7 @@ public class cm_dev_test : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", "GameplayTasks", "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
-		
+		 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Adding this makes 

@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3c53cebe5231a40039930ec1a2988e8fca85ad4a689a482da6a35ccf7d1e0279
-size 672
+// Core Mechanics
+
+
+#include "MyCharacterBase.h"
+
+
+// Sets default values
+AMyCharacterBase::AMyCharacterBase()
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+void AMyCharacterBase::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void AMyCharacterBase::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+// Called to bind functionality to input
+void AMyCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+

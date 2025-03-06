@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4cbe08ef8e386fc4d3b2573071678b1f986aec2023b12dc10b916a83fbddff4d
-size 619
+// Core Mechanics
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "MyCharacterBase.h"
+#include "EnemyCharacter.generated.h"
+
+UCLASS()
+class CM_DEV_TEST_API AEnemyCharacter : public AMyCharacterBase
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this character's properties
+	AEnemyCharacter();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+};

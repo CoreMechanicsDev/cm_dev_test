@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:12cc3fe05caa0e2cd129e242cead770f037050fdc70b88ce29f3b26104b27980
-size 624
+// Core Mechanics
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "MyCharacterBase.generated.h"
+
+UCLASS()
+class CM_DEV_TEST_API AMyCharacterBase : public ACharacter
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this character's properties
+	AMyCharacterBase();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+};
