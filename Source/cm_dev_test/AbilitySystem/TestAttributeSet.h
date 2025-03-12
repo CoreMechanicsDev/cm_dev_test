@@ -28,34 +28,30 @@ public:
 	// Current Health (replicated using protected ufunction below)
 	// It is being set up as a read only blueprint under the 'health' category
 	// It  points to the protected 'OnRep_CurrentHealth' function to handle network replication
-	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_CurrentHealth)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS|Health")
 	// Create the attribute data
 	FGameplayAttributeData CurrentHealth;
-	// Now call the macro defined above.  This will insert a bunch of boiler plate code that
+	// Now call the macro defined above.  This will insert a bunch of boilerplate code that
 	// Allows the GAS system to work for each attribute
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, CurrentHealth)
 
 	// Max Health 
-	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_MaxHealth)
+	UPROPERTY(BlueprintReadOnly, Category = "GAS|Health")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, MaxHealth)
 
-	// Manas
-	UPROPERTY(BlueprintReadOnly, Category = "Mana", ReplicatedUsing = OnRep_Mana)
-	FGameplayAttributeData Mana;
-	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Mana)
-	
-protected:
-	// Replication Notifies
-	// Calls function defined above
-	// Tells server how much health, mana, etc we have
-	UFUNCTION()
-	virtual void OnRep_CurrentHealth(const FGameplayAttributeData& OldCurrentHealth);
+	// Magic
+	UPROPERTY(BlueprintReadOnly, Category = "GAS|Magic")
+	FGameplayAttributeData Magic;
+	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Magic)
 
-	UFUNCTION()
-	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth);
+	// Speed
+	UPROPERTY(BlueprintReadOnly, Category = "GAS|Speed")
+	FGameplayAttributeData Speed;
+	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Speed)
 	
-	UFUNCTION()
-	virtual void OnRep_Mana(const FGameplayAttributeData& OldMana);
-	
+	// BLANK
+	// UPROPERTY(BlueprintReadOnly, Category = "BLANK", ReplicatedUsing = OnRep_BLANK)
+	// FGameplayAttributeData BLANK;
+	// ATTRIBUTE_ACCESSORS(UTestAttributeSet, BLANK)
 };

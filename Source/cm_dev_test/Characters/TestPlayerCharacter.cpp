@@ -1,19 +1,34 @@
 // Core Mechanics
 
-#include "PlayerCharacter.h"
+#include "TestPlayerCharacter.h"
+#include "TestCharacterBase.h"
+
 // This include is able to referred to without the path because we included
 // the path in the Build.cs fil
 
 
 // Sets default values
-APlayerCharacter::APlayerCharacter()
+ATestPlayerCharacter::ATestPlayerCharacter()
 {
+
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+// Called every frame
+void ATestPlayerCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// Draw sphere at every frame at actor location
+	SPHERE_TICK(GetActorLocation());
+
+	// Drawn line at every frame from actor to vector location
+	LINE_TICK(GetActorLocation(), FVector(2200.f, 700.f, 150.f));
+}
+
 // Called when the game starts or when spawned
-void APlayerCharacter::BeginPlay()
+void ATestPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -41,21 +56,4 @@ void APlayerCharacter::BeginPlay()
 	
 }
 
-// Called every frame
-void APlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	// Draw sphere at every frame at actor location
-	SPHERE_TICK(GetActorLocation());
-
-	// Drawn line at every frame from actor to vector location
-	LINE_TICK(GetActorLocation(), FVector(2200.f, 700.f, 150.f));
-}
-
-// Called to bind functionality to input
-void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
 
