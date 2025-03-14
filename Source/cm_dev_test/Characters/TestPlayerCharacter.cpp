@@ -32,6 +32,8 @@ void ATestPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
+
 	UE_LOG(LogTemp, Warning, TEXT("Hello World From UE_LOG"));
 
 	//	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, TEXT("Hello Screen"));
