@@ -2,40 +2,46 @@
 
 
 #include "TestCharacterBase.h"
-#include "AbilitySystem/TestAbilitySystemComponent.h"
+#include "AbilitySystemComponent.h"
 #include "AbilitySystem/TestAttributeSet.h"
 
 // Sets default values
 ATestCharacterBase::ATestCharacterBase()
 {
-	// Super::BeginPlay();
-
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	// Create the ability system
-	AbilitySystemComponent = CreateDefaultSubobject<UTestAbilitySystemComponent>("AbilitySystemComponent");
-	
-	// Create the attribute set
-	AttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
-	
-}
 
-// Implementation of ability system component (just returns)
-UAbilitySystemComponent* ATestCharacterBase::GetAbilitySystemComponent() const
-{
-		return AbilitySystemComponent;
+	// From tutorial 
+	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
+
+	// From tutorial - create and attach attributes  to character
+	AttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
 }
 
 // Called when the game starts or when spawned
 void ATestCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	PRINT("Hello From MyCharacterBase.cpp");
 
-	// Specify owner and avatar of component
-	// The owner is the entity which 'owns' this component which can be many things
-	// We want the owner to be a pawn in this case
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	// From tutorial
+	AbilitySystem->InitAbilityActorInfo(this, this);
+
+	// From tutorial - hack to set initial values
+	// Notice how these functions were never declared anywhere
+	// This is because they are created by the macros as defined
+	// In SimpleGasAttribubteSet.h
+
+	// Set initial values
+	// AttributeSet->SetHealth(10);
+	// AttributeSet->SetMagic(5);
+
+	auto Attribute = AttributeSet->GetHealthAttribute();
+	auto& Delegate = AbilitySystem->GetGameplayAttributeValueChangeDelegate(Attribute);
+	Delegate.AddWeakLambda(this, [this](auto)
+	{
+		if (AttributeSet->GetHealth() <= 0)
+			Destroy();
+	});
 }
 
 // Called every frame
@@ -44,4 +50,9 @@ void ATestCharacterBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+// Called to bind functionality to input
+void ATestCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
 
