@@ -23,16 +23,19 @@ public:
 	// Initialize Values For Attributes
 	UTestAttributeSet();
 	
-	// From Tutorial - Contains Health attribute
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Health);
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
+	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UTestAttributeSet, MaxHealth);
+	
+	UPROPERTY(BlueprintReadOnly)
 	FGameplayAttributeData Speed;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Speed);
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	FGameplayAttributeData Magic;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Magic);
 };

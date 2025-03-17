@@ -6,6 +6,7 @@
 
 // Macro to print text to screen
 #define PRINT(DebugMessage, ...){ GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(DebugMessage)));}
+#define PRINTERR(DebugMessage, ...){ GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT(DebugMessage)));}
 
 // Macro to print to screen which ALSO takes argument to allow things like printing variables / function names
 #define PRINTARGS(DebugMessage, ...){ GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(DebugMessage), __VA_ARGS__));}

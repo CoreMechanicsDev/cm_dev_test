@@ -12,9 +12,13 @@
 #include "TestCharacterBase.generated.h"
 
 // class UGameplayAbility;
-// class UTestAbilitySystemComponent;
+ // class UTestAbilitySystemComponent;
 
 class UTestAbilitySystemComponent;
+class UTestAttributeSet;
+
+// GE - Forward Declaration
+//class UGameplayEffect;
 
 UCLASS()
 class CM_DEV_TEST_API ATestCharacterBase : public ACharacter , public IAbilitySystemInterface
@@ -30,17 +34,19 @@ public:
 	
 	// From Tutorial
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UAbilitySystemComponent* AbilitySystem;
+	UAbilitySystemComponent* MyAbilitySystem;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{
-		return AbilitySystem;
+		return MyAbilitySystem;
 	}
 
 	//From Tutorial - create attribute set which adds it to character
 	UPROPERTY()
-	class UTestAttributeSet* AttributeSet;
+	class UTestAttributeSet* MyAttributeSet;
 
+	// From Kai (probably does same as above)
+	virtual UTestAttributeSet* GetAttributeSet() const;
 
 protected:
 	// Called when the game starts or when spawned
@@ -49,6 +55,13 @@ protected:
 	// Define function that will give character its default
 	// Abilities specified by user
 	void GiveDefaultAbilities();
+
+	// ME - Try to give default attributes
+	void GiveDefaultAttributes() const;
+	
+
+	//UPROPERTY()
+	//TObjectPtr<UTestAttributeSet> MyAttributeSet;
 
 	// From Kai - Add component as UPROPERTY (requires forward declaration) so ASC
 	// Appears on Player Character in editor
@@ -60,6 +73,9 @@ protected:
 	// ** THIS CREATES THE ENTRY IN THE PLAYER'S DETAILS PANEL **
 	UPROPERTY(EditDefaultsOnly, Category = "GAS|Ability")
 	TArray<TSubclassOf<UGameplayAbility>> DefaultAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GAS|Ability")
+	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
 
 public:
 	// Called every frame

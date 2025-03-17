@@ -10,6 +10,6 @@ UTestAttributeSet::UTestAttributeSet()
 	// Initialize Variables
 	// Apparently these current values can just be set easily by using : and then a list
 	// of default values
-	: Health(33.f), Speed(44.f), Magic(55.f)
+	// : Health(33.f), Speed(44.f), Magic(55.f)
 	{
 	}
