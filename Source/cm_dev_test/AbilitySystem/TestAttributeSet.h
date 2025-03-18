@@ -22,7 +22,11 @@ public:
 
 	// Initialize Values For Attributes
 	UTestAttributeSet();
-	
+
+	// Define methods for clamping attribute values and actions resulting from attribute changes
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Health);
