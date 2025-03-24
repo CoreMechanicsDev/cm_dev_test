@@ -11,10 +11,7 @@ ATestCharacterBase::ATestCharacterBase()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	// From Kai - Initialize ASC
-	// AbilitySystemComponent = CreateDefaultSubobject<UTestAbilitySystemComponent>("TestAbilitySystemComponent");
-
+	
 	// From tutorial 
 	MyAbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
 
@@ -22,11 +19,6 @@ ATestCharacterBase::ATestCharacterBase()
 	MyAttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
 }
 
-// From Kai - Getter for ASC
-// UAbilitySystemComponent* ATestCharacterBase::GetAbilitySystemComponent() const
-// {
-// 	return AbilitySystemComponent;
-// }
 
 UTestAttributeSet* ATestCharacterBase::GetAttributeSet() const
 {
@@ -37,19 +29,13 @@ UTestAttributeSet* ATestCharacterBase::GetAttributeSet() const
 void ATestCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// From Kai - Initialize ASC on owner and avatar (ie Player)
-	// AbilitySystemComponent->InitAbilityActorInfo(this, this);
-
+	
 	// From tutorial
 	MyAbilitySystem->InitAbilityActorInfo(this, this);
 
 	// From Kai - Give default abilities
 	GiveDefaultAbilities();
 	GiveDefaultAttributes();
-
-	// From me - Try giving default attributes
-	//GiveDefaultAttributes();
 	
 	// From tutorial - hack to set initial values
 	// Notice how these functions were never declared anywhere
@@ -62,6 +48,8 @@ void ATestCharacterBase::BeginPlay()
 	//
 	// auto Attribute = MyAttributeSet->GetHealthAttribute();
 	// auto& Delegate = MyAbilitySystem->GetGameplayAttributeValueChangeDelegate(Attribute);
+
+	// TODO:  Try integrating this 'destroy' into new attribute setup
 	// Delegate.AddWeakLambda(this, [this](auto)
 	// {
 	// 	if (MyAttributeSet->GetHealth() <= 0)
@@ -72,7 +60,7 @@ void ATestCharacterBase::BeginPlay()
 // Grant default abilities at start
 void ATestCharacterBase::GiveDefaultAbilities()
 {
-	PRINT("Initializing Abilities");
+	LOG("Initializing Abilities in {1}", __FILE_NAME__);
 	
 	for(TSubclassOf<UGameplayAbility> MyAbilityClass : DefaultAbilities)
 	{
@@ -82,12 +70,10 @@ void ATestCharacterBase::GiveDefaultAbilities()
 }
 
 // Grant default attributes at start (using effect)
-// CLEAN THIS UP
 void ATestCharacterBase::GiveDefaultAttributes() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Initializing Attributes"));
 
-	PRINT("Initializing Attributes");
+	LOG("Initializing Attributes in {1}", __FILE_NAME__);
 
 	if(!MyAbilitySystem || !DefaultAttributeEffect)
 	{
@@ -95,21 +81,20 @@ void ATestCharacterBase::GiveDefaultAttributes() const
 		return;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Define EffectContext"));
+	LOG("Define EffectContext in {1}", __FILE_NAME__);
 	FGameplayEffectContextHandle EffectContext = MyAbilitySystem->MakeEffectContext();
 
-	UE_LOG(LogTemp, Warning, TEXT("AddSourceObject"));
+	LOG("Add Source Object in {1}", __FILE_NAME__);
 	EffectContext.AddSourceObject(this);
 
 	// Declare SpecHandle Variable
 	
-	UE_LOG(LogTemp, Warning, TEXT("Define SpecHandle"));
+	LOG("Define SpecHandle in {1}", __FILE_NAME__);
 	const FGameplayEffectSpecHandle SpecHandle = MyAbilitySystem->MakeOutgoingSpec(DefaultAttributeEffect, 1.f, EffectContext);
 
 	if(SpecHandle.IsValid())
 	{
-		PRINT("Applying Effects To Character");
-		UE_LOG(LogTemp, Warning, TEXT("ApplyGameplayEffectSpecToSelf"));
+		LOG("Applying Effects To Character in {1}", __FILE_NAME__);
 
 		MyAbilitySystem->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());			
 

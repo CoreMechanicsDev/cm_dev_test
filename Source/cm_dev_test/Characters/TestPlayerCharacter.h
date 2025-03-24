@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "HAL/PlatformMisc.h"
+//#include "Misc/DateTime.h"
 #include "TestCharacterBase.h"
 #include "TestPlayerCharacter.generated.h"
 
@@ -16,6 +18,8 @@ class CM_DEV_TEST_API ATestPlayerCharacter : public ATestCharacterBase
 public:
 	// Sets default values for this character's properties
 	ATestPlayerCharacter();
+
+	FString GetCurrentUsername();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

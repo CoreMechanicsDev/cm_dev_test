@@ -3,8 +3,15 @@
 // Macros to prevent repetetive long strings of code
 
 #include "DrawDebugHelpers.h"
+#include "Logging/StructuredLog.h"
+
+// Macro to print to log with timestamp and prefix
+#define LOG(FormatString, ...) \
+UE_LOGFMT(LogTemp, Warning, "{0} " FormatString, \
+*FDateTime::Now().ToString(TEXT("[amcclay] %h:%m:%S%a -")), ##__VA_ARGS__)
 
 // Macro to print text to screen
+// Replaces   GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"))
 #define PRINT(DebugMessage, ...){ GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(DebugMessage)));}
 #define PRINTERR(DebugMessage, ...){ GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT(DebugMessage)));}
 

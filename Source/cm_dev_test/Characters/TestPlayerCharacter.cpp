@@ -1,11 +1,11 @@
 // Core Mechanics
 
+// Some includes are able to referred to without the path because we included
+// the path in the Build.cs file
 #include "TestPlayerCharacter.h"
 #include "TestCharacterBase.h"
-
-// This include is able to referred to without the path because we included
-// the path in the Build.cs fil
-
+#include "Kismet/GameplayStatics.h"
+#include "Serialization/MappedName.h"
 
 // Sets default values
 ATestPlayerCharacter::ATestPlayerCharacter()
@@ -14,6 +14,7 @@ ATestPlayerCharacter::ATestPlayerCharacter()
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
+
 
 // Called every frame
 void ATestPlayerCharacter::Tick(float DeltaTime)
@@ -27,22 +28,29 @@ void ATestPlayerCharacter::Tick(float DeltaTime)
 	LINE_TICK(GetActorLocation(), FVector(2200.f, 700.f, 150.f));
 }
 
+FString ATestPlayerCharacter::GetCurrentUsername()
+{
+	return FPlatformMisc::GetDefaultDeviceProfileName();
+
+}
+
 // Called when the game starts or when spawned
 void ATestPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	// Testing Kaos LOG Macro 
 
-	UE_LOG(LogTemp, Warning, TEXT("Hello World From UE_LOG"));
+	FString MyDummyString = "Hello World";
+	int MyDummyInt = 666;
+	FString MyPlatform = UGameplayStatics::GetPlatformName();
 
-	//	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, TEXT("Hello Screen"));
-	// Replaced the above long command with a macro contained in MyMacros.h
-	// Now printing is much easier
+	LOG("String is {1}, Int is {2}, platform is {3} in file {4}.", MyDummyString, MyDummyInt, MyPlatform, __FILE_NAME__);
+
+	// New LOGFMT function example
+	// UE_LOGFMT(LogCore, Warning, "Loading `{Name}` failed with error {Error}", "Deep", "DumbError");
 	
-	PRINT("Hello World From Macro");
-	
-	// Another Macro to also print the function from which the print call was made
+	// Another Macro to also print the function / file from which the print call was made
 	PRINTARGS("Hello World From Function: %s", *FString(__FUNCTION__));
 
 	// Set up a vector that serves as center location for sphere

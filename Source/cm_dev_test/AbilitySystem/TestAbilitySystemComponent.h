@@ -6,8 +6,6 @@
 #include "AbilitySystemComponent.h"
 #include "TestAbilitySystemComponent.generated.h"
 
-
-
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class CM_DEV_TEST_API UTestAbilitySystemComponent : public UAbilitySystemComponent
 {
