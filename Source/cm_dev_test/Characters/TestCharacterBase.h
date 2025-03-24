@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Abilities/GameplayAbility.h"
+#include <iostream>
 #include "TestCharacterBase.generated.h"
 
 // class UGameplayAbility;

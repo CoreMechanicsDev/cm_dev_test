@@ -60,7 +60,7 @@ void ATestCharacterBase::BeginPlay()
 // Grant default abilities at start
 void ATestCharacterBase::GiveDefaultAbilities()
 {
-	LOG("Initializing Abilities in {1}", __FILE_NAME__);
+	LOG("Initializing Abilities in {1}",FString(__FILE__));
 	
 	for(TSubclassOf<UGameplayAbility> MyAbilityClass : DefaultAbilities)
 	{
@@ -73,7 +73,7 @@ void ATestCharacterBase::GiveDefaultAbilities()
 void ATestCharacterBase::GiveDefaultAttributes() const
 {
 
-	LOG("Initializing Attributes in {1}", __FILE_NAME__);
+	LOG("Initializing Attributes in {1}", FString(__FUNCTION__));
 
 	if(!MyAbilitySystem || !DefaultAttributeEffect)
 	{
@@ -81,20 +81,20 @@ void ATestCharacterBase::GiveDefaultAttributes() const
 		return;
 	}
 
-	LOG("Define EffectContext in {1}", __FILE_NAME__);
+	LOG("Define EffectContext in {1}", FString(__FILE__));
 	FGameplayEffectContextHandle EffectContext = MyAbilitySystem->MakeEffectContext();
 
-	LOG("Add Source Object in {1}", __FILE_NAME__);
+	LOG("Add Source Object in {1}", FString(__FILE__));
 	EffectContext.AddSourceObject(this);
 
 	// Declare SpecHandle Variable
 	
-	LOG("Define SpecHandle in {1}", __FILE_NAME__);
+	LOG("Define SpecHandle in {1}", FString(__FILE__));
 	const FGameplayEffectSpecHandle SpecHandle = MyAbilitySystem->MakeOutgoingSpec(DefaultAttributeEffect, 1.f, EffectContext);
 
 	if(SpecHandle.IsValid())
 	{
-		LOG("Applying Effects To Character in {1}", __FILE_NAME__);
+		LOG("Applying Effects To Character in {1}", FString(__FILE__));
 
 		MyAbilitySystem->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());			
 

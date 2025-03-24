@@ -45,7 +45,7 @@ void ATestPlayerCharacter::BeginPlay()
 	int MyDummyInt = 666;
 	FString MyPlatform = UGameplayStatics::GetPlatformName();
 
-	LOG("String is {1}, Int is {2}, platform is {3} in file {4}.", MyDummyString, MyDummyInt, MyPlatform, __FILE_NAME__);
+	LOG("String is {1}, Int is {2}, platform is {3} in file {4}.", MyDummyString, MyDummyInt, MyPlatform, __FUNCTION__);
 
 	// New LOGFMT function example
 	// UE_LOGFMT(LogCore, Warning, "Loading `{Name}` failed with error {Error}", "Deep", "DumbError");
