@@ -19,13 +19,13 @@ UTestAttributeSet::UTestAttributeSet()
 // exact attribute value - use PostGameplayEffectExecute for that below
 void UTestAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
-	Super::PreAttributeChange(Attribute, NewValue);
+	// Super::PreAttributeChange(Attribute, NewValue);
 
 	// Clamp attribute to minimum of 2
-	if(Attribute == GetHealthAttribute())
-	{
-		NewValue = FMath::Clamp(NewValue, 2.f, GetMaxHealth());
-	}
+	// if(Attribute == GetHealthAttribute())
+	// {
+	// 	NewValue = FMath::Clamp(NewValue, 2.f, GetMaxHealth());
+	// }
 
 }
 
@@ -44,13 +44,20 @@ void UTestAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	// Do this if it's the health attribute that has changed
 	if(Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
+		// *** REMOVED - THIS WAS CAUSING HEALTH ATTRIBUTE TO REGISTER A SECOND CHANGE EVENT ***
 		// Make sure health doesn't drop below MaxHealth
-		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+		//SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 
+		// Print name of hit actor and its new health value
+		FString LocalTarget = GetOwningActor()->GetActorNameOrLabel();
+		LOG("Health on {1} is now {2}", LocalTarget, GetHealth());
+
+		
+		
 		// TEST - Print to log if health is at 3
-		if (GetHealth() == 3)
+		if (GetHealth() == 0)
 		{
-			LOG("Player Health Hit 3");
+			LOG("Target Should Be Dead");
 		}
 	}
 }

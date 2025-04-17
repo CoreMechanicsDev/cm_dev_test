@@ -15,8 +15,13 @@ public:
 	// Sets default values for this actor's properties
 	UTestAbilitySystemComponent();
 
+	// Test GAS component event
+	UFUNCTION(BlueprintImplementableEvent)
+	void GASTestEvent();
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
 };

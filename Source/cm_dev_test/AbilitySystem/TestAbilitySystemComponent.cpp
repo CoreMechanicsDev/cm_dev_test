@@ -17,6 +17,9 @@ UTestAbilitySystemComponent::UTestAbilitySystemComponent()
 void UTestAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Sending the test GAS event on begin play
+	GASTestEvent();
 	
 }
 

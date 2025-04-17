@@ -13,6 +13,8 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChange, float, Health);
+
 UCLASS()
 class CM_DEV_TEST_API UTestAttributeSet : public UAttributeSet
 {
@@ -23,23 +25,30 @@ public:
 	// Initialize Values For Attributes
 	UTestAttributeSet();
 
+
+	
 	// Define methods for clamping attribute values and actions resulting from attribute changes
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-	UPROPERTY(BlueprintReadOnly)
+	// Original
+	//UPROPERTY(BlueprintReadOnly)
+	// From Reddit
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Health);
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, MaxHealth);
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Speed;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Speed);
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Magic;
 	ATTRIBUTE_ACCESSORS(UTestAttributeSet, Magic);
+
+
 };

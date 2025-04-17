@@ -12,14 +12,8 @@
 #include <iostream>
 #include "TestCharacterBase.generated.h"
 
-// class UGameplayAbility;
- // class UTestAbilitySystemComponent;
-
 class UTestAbilitySystemComponent;
 class UTestAttributeSet;
-
-// GE - Forward Declaration
-//class UGameplayEffect;
 
 UCLASS()
 class CM_DEV_TEST_API ATestCharacterBase : public ACharacter , public IAbilitySystemInterface
@@ -29,9 +23,6 @@ class CM_DEV_TEST_API ATestCharacterBase : public ACharacter , public IAbilitySy
 public:
 	// Sets default values for this character's properties
 	ATestCharacterBase();
-
-	// From Kai (IbilityInterface interface)
-	//virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
 	// From Tutorial
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
