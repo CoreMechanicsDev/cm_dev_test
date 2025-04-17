@@ -51,7 +51,7 @@ void ATestPlayerCharacter::BeginPlay()
 	// UE_LOGFMT(LogCore, Warning, "Loading `{Name}` failed with error {Error}", "Deep", "DumbError");
 	
 	// Another Macro to also print the function / file from which the print call was made
-	PRINTARGS("Hello World From Function: %s", *FString(__FUNCTION__));
+	//PRINTARGS("Hello World From Function: %s", *FString(__FUNCTION__));
 
 	// Set up a vector that serves as center location for sphere
 	FVector TargetLocation(2200.f, 700.f, 150.f);
