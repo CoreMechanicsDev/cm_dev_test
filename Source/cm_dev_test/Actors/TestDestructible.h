@@ -44,13 +44,16 @@ public:
 	// From Kai (probably does same as above)
 	virtual UTestAttributeSet* GetAttributeSet() const;
 
-
-	
+	// BOUNCE - Counter
+	float RunningTime;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Define function to bounce mesh
+	void BounceMesh(float StartTime, bool ShouldBounce);
+	
 	// Define functions to give abilities and attribiutes
 	void GiveDefaultAbilities();
 	void GiveDefaultAttributes() const;
@@ -76,7 +79,17 @@ public:
 	// Create Test Event
 	UFUNCTION(BlueprintImplementableEvent)
 	void TestEvent();
-
+	
+	// When this UPROPERTY command precedes a variable declaration it makes it appear in the Details panel in editor
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings")
+	FRotator Spin;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings")
+	FVector Bob;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings")
+	float BobSpeedMultiplier;
+	
 };
 
 
