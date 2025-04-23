@@ -49,6 +49,13 @@ public:
 	float BounceDuration = 0.5f;
 	FVector TargetLocation;
 	FVector StartLocation;
+	bool BounceSoundPlayed;
+
+	// Audio
+	UAudioComponent* AudioComponent;
+    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* BounceSound;
 
 protected:
 	// Called when the game starts or when spawned

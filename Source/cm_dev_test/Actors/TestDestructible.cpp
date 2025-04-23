@@ -1,4 +1,5 @@
 // Core Mechanics
+// Aaron McClay 2025
 
 
 #include "TestDestructible.h"
@@ -8,7 +9,7 @@
 #include "AbilitySystem/TestAbilitySystemComponent.h"
 #include "AbilitySystem/TestAttributeSet.h"
 
-// Sets default values
+// Constructor - Set default values here
 ATestDestructible::ATestDestructible()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,6 +24,8 @@ ATestDestructible::ATestDestructible()
 	// Create Attribute set for actor
 	MyAttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
 
+	// Create Sound Subobject
+	BounceSound = CreateDefaultSubobject<USoundBase>("Bounce Sound");
 
 }
 
@@ -38,7 +41,8 @@ void ATestDestructible::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetActorLocation();
-
+	 BounceSoundPlayed = false;
+	
 	// Sending the test event on begin play
 	TestEvent();
 
@@ -112,8 +116,16 @@ void ATestDestructible::Tick(float DeltaTime)
 			// Apply LERP to Z-axis position (example)
 			FVector NewLocation = FVector(GetActorLocation().X, GetActorLocation().Y, FMath::Lerp(StartLocation.Z, TargetLocation.Z, QuadraticBounceFactor));
 			SetActorLocation(NewLocation);
-			LOG("CURRENT BOUNCE LOCATION: {1}", NewLocation.Z);
+			// LOG("CURRENT BOUNCE LOCATION: {1}", NewLocation.Z);
 
+			// Check if Lerp bounce position and if sound hasn't already played, play bounce sound
+			if (LerpFactor > .5f && !BounceSoundPlayed)
+			{
+				
+				// Play bounce sound
+				UGameplayStatics::PlaySound2D(GetWorld(), BounceSound, .5, 1, 0, NULL, this, true);
+				BounceSoundPlayed = true;
+			}
 				// If LerpFactor hits 1, we are done with the bounce.  Reset Start Time so we can bounce again.
 				if (LerpFactor == 1.0f)
 				{
@@ -122,6 +134,8 @@ void ATestDestructible::Tick(float DeltaTime)
 
 					//Optional: Trigger other events at end of bounce
 					// Do Stuff
+					BounceSoundPlayed = false;
+
 				}
 		}
 }
@@ -133,10 +147,10 @@ void ATestDestructible::OnHealthAttributeChanged(const FOnAttributeChangeData& D
 	OnHealthChanged(Data.OldValue, Data.NewValue);
 	// LOG("OnHealthAttributeChanged Fired");
 
-	// From Google
+	// Set Bounce Start Time (this will allow jump animation in tick function to begin)
 	BounceStartTime = GetWorld()->GetTimeSeconds();
 	LOG("\nBounce Data:\nStart Time: {1}\nDuration: {2}\nStart Height: {3}", BounceStartTime, BounceDuration, StartLocation.Z);
-	
+
 	// Do Simple Material Flash (as defined in Material Function)
 	FCustomPrimitiveData CPD = StaticMeshComp->GetCustomPrimitiveData();
 	
