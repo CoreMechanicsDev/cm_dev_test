@@ -18,7 +18,7 @@ UCLASS()
 class CM_DEV_TEST_API ATestDestructible : public AActor , public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-
+	
 	// Allow static mesh to be added to actor in editor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= Mesh, meta=(AllowPrivateAccess=true))
 	UStaticMeshComponent* StaticMeshComp;
@@ -44,8 +44,11 @@ public:
 	// From Kai (probably does same as above)
 	virtual UTestAttributeSet* GetAttributeSet() const;
 
-	// BOUNCE - Counter
-	float RunningTime;
+	// Hit Bounce Variables
+	float BounceStartTime = -1.0f;
+	float BounceDuration = 0.5f;
+	FVector TargetLocation;
+	FVector StartLocation;
 
 protected:
 	// Called when the game starts or when spawned

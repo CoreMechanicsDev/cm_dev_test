@@ -8,16 +8,11 @@
 #include "AbilitySystem/TestAbilitySystemComponent.h"
 #include "AbilitySystem/TestAttributeSet.h"
 
-// bool ShouldAnimate = false;
-// float AnimationStartTime = 0.0f;
-// FVector AnimationStartLocation;
-// float AnimationDuration;
-
 // Sets default values
 ATestDestructible::ATestDestructible()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 	// Create Static Mesh slot on actor	
 	StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComp"));
 	RootComponent = StaticMeshComp;
@@ -27,7 +22,8 @@ ATestDestructible::ATestDestructible()
 
 	// Create Attribute set for actor
 	MyAttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
-	
+
+
 }
 
 // Get default attributes
@@ -41,9 +37,8 @@ void ATestDestructible::BeginPlay()
 {
 	Super::BeginPlay();
 
+	StartLocation = GetActorLocation();
 
-	// BounceMesh(DeltaTime);
-	
 	// Sending the test event on begin play
 	TestEvent();
 
@@ -58,9 +53,6 @@ void ATestDestructible::BeginPlay()
 	// ******** From Youtube Create Health Change Event
 	//UTestAttributeSet* MyAttributeSet = PS->MyAttributeSet;
 	MyAbilitySystem->GetGameplayAttributeValueChangeDelegate(MyAttributeSet->GetHealthAttribute()).AddUObject(this, &ATestDestructible::OnHealthAttributeChanged);
-	
-	// Store original mesh location (for spin and bob functionality)
-	//AnimationStartLocation = this->GetActorLocation();
 
 }
 
@@ -107,39 +99,31 @@ void ATestDestructible::Tick(float DeltaTime)
 {
 	
 	Super::Tick(DeltaTime);
-
-	// BOUNCE - Store actor's current location
-	FVector NewLocation = GetActorLocation();
-
-	// BOUNCE - Sin generates value between -1 to 1 which cycles up and down
-	// We use that value to move / create the new height each frame
-	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
-
-	// BOUNCE - This creates the new location towards the desired vector (in this case, Z) and multiply it by another
-	// Number which will be the scale / speed of the movement
-	NewLocation.Z += DeltaHeight * 10.0f;
-
-	// BOUNCE - DeltaTime is a parameter passed to the tick function
-	RunningTime += DeltaTime;
-
-	// BOUNCE - Finally, Set the actor's location to the newly calculated location
-	SetActorLocation(NewLocation);
 	
-	//if (ShouldAnimate)
-	//{
-		// Call bounce mesh function and send current time
-		//BounceMesh(UGameplayStatics::GetTimeSeconds(GetWorld()), true);
-        
-		// Use sine wave which calculates amount of time since level has loaded to bounce actor
-		// Result will be value between -1 and +1
-		// float sine = FMath::Sin(AnimationStartTime * BobSpeedMultiplier);
-		// this->AddActorWorldRotation(Spin * AnimationStartTime);
-		// this->SetActorLocation(StartLocation + (Bob * sine));
-		
-	//	this->AddActorWorldRotation(Spin * .5);
+		if (BounceStartTime != -1.0f) // Check if bounce should happen (happens every frame)
+		{
+			// Calculate the time passed since the bounce started
+			float ElapsedTime = GetWorld()->GetTimeSeconds() - BounceStartTime;
 
-	//}
-		
+			// The magic
+			float LerpFactor = FMath::Clamp(ElapsedTime / BounceDuration, 0.0f, 1.0f);
+			float QuadraticBounceFactor = 4.0f * LerpFactor * (LerpFactor - 1.0f);
+
+			// Apply LERP to Z-axis position (example)
+			FVector NewLocation = FVector(GetActorLocation().X, GetActorLocation().Y, FMath::Lerp(StartLocation.Z, TargetLocation.Z, QuadraticBounceFactor));
+			SetActorLocation(NewLocation);
+			LOG("CURRENT BOUNCE LOCATION: {1}", NewLocation.Z);
+
+				// If LerpFactor hits 1, we are done with the bounce.  Reset Start Time so we can bounce again.
+				if (LerpFactor == 1.0f)
+				{
+					// Bounce completed
+					BounceStartTime = -1.0f;
+
+					//Optional: Trigger other events at end of bounce
+					// Do Stuff
+				}
+		}
 }
 
 
@@ -147,11 +131,11 @@ void ATestDestructible::Tick(float DeltaTime)
 void ATestDestructible::OnHealthAttributeChanged(const FOnAttributeChangeData& Data)
 {
 	OnHealthChanged(Data.OldValue, Data.NewValue);
-	LOG("OnHealthAttributeChanged Fired");
+	// LOG("OnHealthAttributeChanged Fired");
 
-	// Store start time in global variable for tick animation and set ShouldAnimate to true
-	// AnimationStartTime = this->GetWorld()->GetRealTimeSeconds();
-	// ShouldAnimate = true;
+	// From Google
+	BounceStartTime = GetWorld()->GetTimeSeconds();
+	LOG("\nBounce Data:\nStart Time: {1}\nDuration: {2}\nStart Height: {3}", BounceStartTime, BounceDuration, StartLocation.Z);
 	
 	// Do Simple Material Flash (as defined in Material Function)
 	FCustomPrimitiveData CPD = StaticMeshComp->GetCustomPrimitiveData();
@@ -166,7 +150,7 @@ void ATestDestructible::OnHealthAttributeChanged(const FOnAttributeChangeData& D
 		{
 
 			// Print  Mesh Name
-			LOG("FOUND MESH {1}", this->GetActorNameOrLabel());
+			// LOG("FOUND MESH {1}", this->GetActorNameOrLabel());
 
 			// Call Custom Primitive Data in Material Function (MF_Flash) and pass Game time for SINE math
 			Mesh->SetCustomPrimitiveDataFloat(0,UGameplayStatics::GetTimeSeconds(GetWorld()));
@@ -177,27 +161,9 @@ void ATestDestructible::OnHealthAttributeChanged(const FOnAttributeChangeData& D
 			// Iterate through each material - up to materials.Num() 
 			for (int i = 0; i < materials.Num(); i++)
 			{
-				LOG("FOUND MATERIAL {1}", materials[i]->GetName());
+				// LOG("FOUND MATERIAL {1}", materials[i]->GetName());
 			}
 		}
 	
 	}
-}
-
-void ATestDestructible::BounceMesh(float StartTime, bool ShouldBounce)
-{
-
-	LOG("BounceMesh called with starting time of {1}", StartTime);
-	
-	// Rotate the actor over time
-	// 
-
-	// Bob the actor over time based on a sine wave
-
-	if (ShouldBounce)
-	{
-	
-	}
-
-
 }
