@@ -22,10 +22,10 @@ void ATestPlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// Draw sphere at every frame at actor location
-	SPHERE_TICK(GetActorLocation());
+	//SPHERE_TICK(GetActorLocation());
 
 	// Drawn line at every frame from actor to vector location
-	LINE_TICK(GetActorLocation(), FVector(2200.f, 700.f, 150.f));
+	//LINE_TICK(GetActorLocation(), FVector(2200.f, 700.f, 150.f));
 }
 
 FString ATestPlayerCharacter::GetCurrentUsername()
@@ -59,10 +59,10 @@ void ATestPlayerCharacter::BeginPlay()
 	// The following simplified debug draw calls use macros defined in the MyMacros.h file
 
 	// Draw Sphere at target location
-	SPHERE(TargetLocation);
+	//SPHERE(TargetLocation);
 
 	// Draw line from player to target location
-	LINE(GetActorLocation(), TargetLocation);
+	//LINE(GetActorLocation(), TargetLocation);
 	
 }
 
