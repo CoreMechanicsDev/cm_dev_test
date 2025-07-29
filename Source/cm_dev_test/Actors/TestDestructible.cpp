@@ -109,7 +109,6 @@ void ATestDestructible::Tick(float DeltaTime)
 			// Calculate the time passed since the bounce started
 			float ElapsedTime = GetWorld()->GetTimeSeconds() - BounceStartTime;
 
-			// The magic
 			float LerpFactor = FMath::Clamp(ElapsedTime / BounceDuration, 0.0f, 1.0f);
 			float QuadraticBounceFactor = 4.0f * LerpFactor * (LerpFactor - 1.0f);
 

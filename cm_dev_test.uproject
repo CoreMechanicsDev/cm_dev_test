@@ -29,6 +29,10 @@
 		{
 			"Name": "AnimatorKit",
 			"Enabled": true
+		},
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
 		}
 	]
 }

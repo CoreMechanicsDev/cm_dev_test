@@ -25,36 +25,15 @@ UTestAttributeSet* ATestCharacterBase::GetAttributeSet() const
 	return MyAttributeSet;
 }
 
-// Called when the game starts or when spawned
 void ATestCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// From tutorial
 	MyAbilitySystem->InitAbilityActorInfo(this, this);
 
-	// From Kai - Give default abilities
 	GiveDefaultAbilities();
 	GiveDefaultAttributes();
 	
-	// From tutorial - hack to set initial values
-	// Notice how these functions were never declared anywhere
-	// This is because they are created by the macros as defined
-	// In SimpleGasAttribubteSet.h
-
-	// Set initial values
-	// AttributeSet->SetHealth(10);
-	// AttributeSet->SetMagic(5);
-	//
-	// auto Attribute = MyAttributeSet->GetHealthAttribute();
-	// auto& Delegate = MyAbilitySystem->GetGameplayAttributeValueChangeDelegate(Attribute);
-
-	// TODO:  Try integrating this 'destroy' into new attribute setup
-	// Delegate.AddWeakLambda(this, [this](auto)
-	// {
-	// 	if (MyAttributeSet->GetHealth() <= 0)
-	// 		Destroy();
-	// });
 }
 
 // Grant default abilities at start
@@ -69,7 +48,7 @@ void ATestCharacterBase::GiveDefaultAbilities()
 	}
 }
 
-// Grant default attributes at start (using effect)
+// Grant default   attributes at start (using effect)
 void ATestCharacterBase::GiveDefaultAttributes() const
 {
 
