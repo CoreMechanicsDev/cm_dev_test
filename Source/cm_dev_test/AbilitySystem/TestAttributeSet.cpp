@@ -57,7 +57,7 @@ void UTestAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 		// TEST - Print to log if health is at 3
 		if (GetHealth() == 0)
 		{
-			LOG("Target Should Be Dead");
+			LOG("Target Should Be Dead - and new Git Test");
 		}
 	}
 }
