@@ -17,6 +17,9 @@ ATestCharacterBase::ATestCharacterBase()
 
 	// From tutorial - create and attach attributes  to character
 	MyAttributeSet = CreateDefaultSubobject<UTestAttributeSet>("AttributeSet");
+
+
+
 }
 
 
@@ -56,7 +59,15 @@ void ATestCharacterBase::GiveDefaultAttributes() const
 
 	if(!MyAbilitySystem || !DefaultAttributeEffect)
 	{
-		PRINTERR("NO DEFAULT ATTRIBUTE SET");
+
+		// Check for valid owning actor and print warning if no default attribute set found
+		AActor* OwningActor = GetOwner();
+		if (OwningActor)
+		{
+			FString LocalTarget = this->GetActorNameOrLabel();
+			PRINTARGS("GAS: No default attributes for %s", *LocalTarget);
+		}
+
 		return;
 	}
 
