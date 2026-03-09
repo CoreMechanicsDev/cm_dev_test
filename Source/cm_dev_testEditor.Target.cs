@@ -7,6 +7,7 @@ public class cm_dev_testEditorTarget : TargetRules
 {
 	public cm_dev_testEditorTarget( TargetInfo Target) : base(Target)
 	{
+		// Test Comment
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V6;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
