@@ -60,6 +60,9 @@ Plugins/**/Binaries/*
 # Builds
 Build/*
 
+# Rider
+
+
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files
 !Build/*/
 Build/*/**

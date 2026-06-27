@@ -8,7 +8,7 @@ public class cm_dev_testTarget : TargetRules
 	public cm_dev_testTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V5;
+		DefaultBuildSettings = BuildSettingsVersion.V7;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
 		ExtraModuleNames.Add("cm_dev_test");
 	}
