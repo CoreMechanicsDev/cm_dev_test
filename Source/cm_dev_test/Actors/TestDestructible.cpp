@@ -147,7 +147,7 @@ void ATestDestructible::OnHealthAttributeChanged(const FOnAttributeChangeData& D
 	// LOG("OnHealthAttributeChanged Fired");
 
 	// Test change for PC Commit - REMOVE
-	s
+	
 	// Set Bounce Start Time (this will allow jump animation in tick function to begin)
 	BounceStartTime = GetWorld()->GetTimeSeconds();
 	LOG("\nBounce Data:\nStart Time: {1}\nDuration: {2}\nStart Height: {3}", BounceStartTime, BounceDuration, StartLocation.Z);
