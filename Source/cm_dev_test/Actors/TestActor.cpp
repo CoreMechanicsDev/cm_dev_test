@@ -22,6 +22,8 @@ void ATestActor::BeginPlay()
 	
 }
 
+// Test comment from mac - REMOVE
+
 // Called every frame
 void ATestActor::Tick(float DeltaTime)
 {
